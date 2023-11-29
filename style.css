@@ -224,3 +224,9 @@ header {
         }
     }
 }
+
+/* | Footer */
+footer {
+    padding-block: 10px;
+    text-align: right;
+}
