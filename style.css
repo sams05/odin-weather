@@ -101,6 +101,8 @@ header {
         & input {
             flex: 1;
             font: inherit;
+            /* Need to set min-width to 0 to shrink the input. Ref: https://stackoverflow.com/a/42421490 */
+            min-width: 0;
             padding-inline: 20px;
         }
 
