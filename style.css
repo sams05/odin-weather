@@ -23,6 +23,10 @@ body {
     font-size: 1rem;
 }
 
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
 /* Reset default link style */
 a {
     color: inherit;
@@ -163,6 +167,14 @@ header {
 
         :is(.description, .temperature) {
             grid-column-start: 2;
+        }
+
+        .icon {
+            grid-row: 1 / span 2;
+            font-size: 12rem;
+        }
+
+        :is(.icon, .description, .temperature) {
             justify-self: center;
             align-self: center;
         }
