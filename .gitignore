@@ -130,3 +130,10 @@ dist
 .pnp.*
 
 temp.js
+temp.html
+temp.md
+
+# Output of webpack
+dist/
+
+.DS_Store

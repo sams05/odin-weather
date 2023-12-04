@@ -1,3 +1,5 @@
+import './style.css';
+
 // |API
 
 async function getRawWeatherData(latitude, longitude) {
