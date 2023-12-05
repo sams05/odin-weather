@@ -19,6 +19,10 @@ async function getWeatherData(latitude = 38.8951, longitude = -77.0364) {
     // Get sunrise and sunset for today
     const daytimeRange = { sunrise: daily.sunrise[0], sunset: daily.sunset[0] };
     dailyUnits = { temperatureLow: dailyUnits.temperature_2m_min, temperatureHigh: dailyUnits.temperature_2m_max, precipitation: dailyUnits.precipitation_sum, precipitationProbability: dailyUnits.precipitation_probability_mean };
+    // Time is given with only the date. Append 'T00:00:00' to the end so that Date.parse will interpret it in local time.
+    // Otherwise "date-only forms are interpreted as a UTC time (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format)"
+    // which might give an erroneous date.
+    daily.time = daily.time.map(time => time + 'T00:00:00');
     daily = { dailyUnits, day: daily.time, weatherCode: daily.weather_code, temperatureLow: daily.temperature_2m_min, temperatureHigh: daily.temperature_2m_max, precipitation: daily.precipitation_sum, precipitationProbability: daily.precipitation_probability_mean };
 
     return { time, current, daytimeRange, daily };
@@ -30,22 +34,22 @@ async function getWeatherData(latitude = 38.8951, longitude = -77.0364) {
 async function getWeatherData() {
     return {
         "time": {
-            "time": "2023-12-04T09:45",
+            "time": "2023-12-05T08:45",
             "timezone": {
                 "timezoneLong": "America/New_York",
                 "timezoneShort": "EST"
             }
         },
         "current": {
-            "temperature": 50.6,
-            "weatherCode": 0,
+            "temperature": 40.5,
+            "weatherCode": 3,
             "currentUnits": {
                 "temperature": "°F"
             }
         },
         "daytimeRange": {
-            "sunrise": "2023-12-04T07:10",
-            "sunset": "2023-12-04T16:46"
+            "sunrise": "2023-12-05T07:11",
+            "sunset": "2023-12-05T16:45"
         },
         "daily": {
             "dailyUnits": {
@@ -55,72 +59,72 @@ async function getWeatherData() {
                 "precipitationProbability": "%"
             },
             "day": [
-                "2023-12-04",
                 "2023-12-05",
                 "2023-12-06",
                 "2023-12-07",
                 "2023-12-08",
                 "2023-12-09",
-                "2023-12-10"
+                "2023-12-10",
+                "2023-12-11"
             ],
             "weatherCode": [
-                3,
                 51,
-                71,
+                51,
                 3,
                 3,
                 3,
-                81
+                81,
+                1
             ],
             "temperatureLow": [
-                39.6,
-                33.2,
-                32.6,
-                33.2,
-                38.4,
-                42.8,
-                43
+                36.1,
+                32.5,
+                32.1,
+                40.1,
+                44,
+                45.3,
+                39.3
             ],
             "temperatureHigh": [
-                52.6,
-                45.6,
-                42.1,
-                45.9,
-                54.8,
+                47,
+                42.8,
+                46.1,
+                56.6,
                 57.4,
-                60.9
+                64.1,
+                46.5
             ],
             "precipitation": [
-                0,
                 0.016,
-                0.039,
+                0.031,
                 0,
                 0,
                 0,
-                0.744
+                1.193,
+                0
             ],
             "precipitationProbability": [
                 0,
-                1,
-                20,
+                6,
                 0,
                 0,
                 0,
-                34
+                43,
+                11
             ]
         }
     }
 }
 */
-function interpretWeatherCode(weatherCode, time, {sunrise, sunset} = {}) {
+function interpretWeatherCode(weatherCode, time, { sunrise, sunset } = {}) {
     let isDaytime = true; // Default to daytime i.e. for getting forecast icons
-    if(time) {
+    if (time) {
         time = new Date(time);
         sunrise = new Date(sunrise);
         sunset = new Date(sunset);
-        isDaytime = isWithinInterval(time, {start: sunrise, end: sunset});
+        isDaytime = isWithinInterval(time, { start: sunrise, end: sunset });
     }
-    const dayNight = isDaytime ? 'day': 'night';
+    const dayNight = isDaytime ? 'day' : 'night';
     const { description, image, iconFont } = WEATHER_CODE_MAPPING[weatherCode][dayNight];
     return { description, image, iconFont };
 }

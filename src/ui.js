@@ -48,8 +48,8 @@ function renderDaily({ dailyUnits, day, weatherCode, temperatureLow, temperature
         const precipitationP = document.createElement('p');
         const precipitationProbabilityP = document.createElement('p');
         conditionP.textContent = description;
-        temperatureLowP.textContent = `H: ${temperatureLow[i]} ${dailyUnits.temperatureLow}`;
-        temperatureHighP.textContent = `L: ${temperatureHigh[i]} ${dailyUnits.temperatureHigh}`;
+        temperatureHighP.textContent = `H: ${temperatureHigh[i]} ${dailyUnits.temperatureHigh}`;
+        temperatureLowP.textContent = `L: ${temperatureLow[i]} ${dailyUnits.temperatureLow}`;
         precipitationP.textContent = `Precip.: ${precipitation[i]} ${dailyUnits.precipitation}`;
         precipitationProbabilityP.textContent = `Chance: ${[precipitationProbability[i]]} ${dailyUnits.precipitationProbability}`;
         forecastDetailsDiv.append(conditionP, temperatureLowP, temperatureHighP, precipitationP, precipitationProbabilityP);
