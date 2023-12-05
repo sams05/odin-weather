@@ -65,7 +65,7 @@ header,
 .current-condition,
 .forecast,
 footer {
-    padding: 60px 100px;
+    padding: 30px 100px;
 
     @media (min-width: 1540px) {
         padding-inline: calc((100vw - var(--max-content-width)) / 2);
@@ -204,7 +204,7 @@ header {
     }
 
     .forecast-cards {
-        --min-card-width: 250px;
+        --min-card-width: 200px;
 
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(var(--min-card-width), 1fr));
@@ -213,27 +213,29 @@ header {
         .card {
             display: flex;
             flex-direction: column;
-            width: clamp(var(--min-card-width), 100%/4, var(--max-content-width) / 4);
+            min-width: var(--min-card-width);
+            width: fit-content;
             padding: 20px;
 
             background-color: white;
-            font-size: 1.5rem;
+            font-size: 1rem;
 
-            :where(.day-of-week, .forecast-details) {
+            :where(.day, .forecast-details) {
                 background-color: var(--gray);
             }
 
-            .day-of-week {
+            .day {
                 text-align: center;
                 padding-block: 5px;
             }
 
-            .weather-icon {
-                width: min(100%, 256px);
+            .icon {
+                 font-size: 10rem;
+                 text-align: center;
             }
 
             .forecast-details {
-                padding: 10px 40px;
+                padding: 10px 10px;
             }
         }
     }

@@ -10,6 +10,10 @@ const CURRENT_CONDITION_SECTION = {
     DESCRIPTION_SPAN: document.querySelector('.main-card .description'),
     TEMPERATURE_SPAN: document.querySelector('.main-card .temperature')
 }
+const FORECAST_SECTION = {
+    FORECAST_CARD_TEMPLATE: document.querySelector('.card-template'),
+    FORECAST_CARDS_DIV: document.querySelector('.forecast-cards')
+}
 
 function renderTime({ time, timezone: { timezoneLong, timezoneShort } }) {
     UPDATE_TIME_SPAN.textContent = `${format(new Date(time), 'PPPPp')} ${timezoneShort} (${timezoneLong})`;
@@ -24,12 +28,43 @@ function renderCurrent({ temperature, weatherCode, currentUnits: { temperature: 
 
 }
 
+function renderDaily({ dailyUnits, day, weatherCode, temperatureLow, temperatureHigh, precipitation, precipitationProbability }) {
+    for (let i = 0; i < day.length; i++) {
+        const cardDiv = FORECAST_SECTION.FORECAST_CARD_TEMPLATE.content.cloneNode(true);
+        // Get top level elements of card
+        const dayP = cardDiv.querySelector('.day');
+        const iconSpan = cardDiv.querySelector('.icon');
+        const forecastDetailsDiv = cardDiv.querySelector('.forecast-details');
+
+        // Day and icon
+        dayP.textContent = format(new Date(day[i]), 'EEE, LLL do')
+        const { description, iconFont } = app.interpretWeatherCode(weatherCode[i]);
+        iconSpan.textContent = iconFont;
+
+        // Forecast details
+        const conditionP = document.createElement('p');
+        const temperatureLowP = document.createElement('p');
+        const temperatureHighP = document.createElement('p');
+        const precipitationP = document.createElement('p');
+        const precipitationProbabilityP = document.createElement('p');
+        conditionP.textContent = description;
+        temperatureLowP.textContent = `H: ${temperatureLow[i]} ${dailyUnits.temperatureLow}`;
+        temperatureHighP.textContent = `L: ${temperatureHigh[i]} ${dailyUnits.temperatureHigh}`;
+        precipitationP.textContent = `Precip.: ${precipitation[i]} ${dailyUnits.precipitation}`;
+        precipitationProbabilityP.textContent = `Chance: ${[precipitationProbability[i]]} ${dailyUnits.precipitationProbability}`;
+        forecastDetailsDiv.append(conditionP, temperatureLowP, temperatureHighP, precipitationP, precipitationProbabilityP);
+
+        FORECAST_SECTION.FORECAST_CARDS_DIV.append(cardDiv);
+    }
+}
+
 async function renderForecast() {
     const { time, current, daytimeRange, daily } = await app.getWeatherData();
     renderTime(time);
     // Need to use the time and daytimeRange to differentiate current condition between 
     // daytime and nighttime
     renderCurrent(current, time.time, daytimeRange);
+    renderDaily(daily);
 }
 
 export { renderForecast };
