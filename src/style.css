@@ -128,64 +128,66 @@ header {
             inset: 50vh 50vw;
             translate: -50% -50%;
             padding: 30px 50px;
-            gap: 20px;
 
-            display: flex;
-            flex-direction: column;
-
-            .modal-header {
-                text-align: center;
-                font-size: 1.2rem;
-                padding-bottom: 20px;
-                border-bottom: 2px solid black;
-            }
-
-            .modal-content {
-                /* Have results take up the remaining height */
-                /* min-height must be set to override the default content-based minimum size
-                for a flex item. This is needed to allow for the items in .results to overflow.
-                Ref.: https://drafts.csswg.org/css-flexbox/#flex-common */
-                min-height: 0;
-                flex: 1;
+            .modal-container {
+                height: 100%;
                 display: flex;
                 flex-direction: column;
-                .results {
-                    flex: 1;
-                    overflow-y: scroll;
+                gap: 20px;
+
+                .modal-header {
+                    text-align: center;
+                    font-size: 1.2rem;
+                    padding-bottom: 20px;
+                    border-bottom: 2px solid black;
                 }
 
-                search {
-                    margin-bottom: 20px;
-
-                    /* Merge the search bar and button by stretching the search bar
-                to fill the container and giving a single border around the container */
+                .modal-content {
+                    /* Have results take up the remaining height */
+                    /* min-height must be set to override the default content-based minimum size
+                for a flex item. This is needed to allow for the items in .results to overflow.
+                Ref.: https://drafts.csswg.org/css-flexbox/#flex-common */
+                    min-height: 0;
+                    flex: 1;
                     display: flex;
-                    #location-search {
+                    flex-direction: column;
+                    gap: 20px;
+                    .results {
                         flex: 1;
+                        overflow-y: scroll;
                     }
-                    border: 2px solid black;
-                    border-radius: 5px;
-                    :where(#location-search, .search-btn) {
-                        border: none;
-                        border-radius: 2px;
-                        &.search-btn {
-                            border-top-left-radius: initial;
-                            border-bottom-left-radius: initial;
+
+                    search {
+                        /* Merge the search bar and button by stretching the search bar
+                to fill the container and giving a single border around the container */
+                        display: flex;
+                        #location-search {
+                            flex: 1;
+                        }
+                        border: 2px solid black;
+                        border-radius: 5px;
+                        :where(#location-search, .search-btn) {
+                            border: none;
+                            border-radius: 2px;
+                            &.search-btn {
+                                border-top-left-radius: initial;
+                                border-bottom-left-radius: initial;
+                            }
+                        }
+
+                        #location-search {
+                            padding-inline: 10px;
+                            font-family: inherit;
+                            font-size: 1rem;
                         }
                     }
 
-                    #location-search {
-                        padding-inline: 10px;
-                        font-family: inherit;
-                        font-size: 1rem;
-                    }
-                }
-
-                .results {
-                    button {
-                        display: block;
-                        width: 100%;
-                        text-align: left;
+                    .results {
+                        button {
+                            display: block;
+                            width: 100%;
+                            text-align: left;
+                        }
                     }
                 }
             }

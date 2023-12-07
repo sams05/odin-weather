@@ -8,7 +8,7 @@ async function getRawWeatherData(latitude, longitude) {
 
     return response.json();
 }
-
+/*
 async function getWeatherData(latitude = 38.8951, longitude = -77.0364) {
     // Extract data for app and rename properties
     let { timezone: timezoneLong, timezone_abbreviation: timezoneShort, current_units: currentUnits, current, daily_units: dailyUnits, daily } = await getRawWeatherData(latitude, longitude);
@@ -27,10 +27,10 @@ async function getWeatherData(latitude = 38.8951, longitude = -77.0364) {
 
     return { time, current, daytimeRange, daily };
 }
-
+*/
 
 // Cached data to test rendering data
-/*
+
 async function getWeatherData() {
     return {
         "time": {
@@ -115,7 +115,7 @@ async function getWeatherData() {
         }
     }
 }
-*/
+
 function interpretWeatherCode(weatherCode, time, { sunrise, sunset } = {}) {
     let isDaytime = true; // Default to daytime i.e. for getting forecast icons
     if (time) {
