@@ -1,9 +1,11 @@
 import * as app from './app';
 import { format } from 'date-fns';
+import { initModal } from './modal';
 
 // |Render
 // Cache DOM
 const UPDATE_TIME_SPAN = document.querySelector('.update-time');
+const SEARCH_MODAL_BTN = document.querySelector('[data-target-modal-id]');
 const CURRENT_CONDITION_SECTION = {
     SELF: document.querySelector('.current-condition'),
     ICON_SPAN: document.querySelector('.main-card .material-symbols-outlined.icon'),
@@ -25,7 +27,6 @@ function renderCurrent({ temperature, weatherCode, currentUnits: { temperature: 
     CURRENT_CONDITION_SECTION.ICON_SPAN.textContent = iconFont;
     CURRENT_CONDITION_SECTION.DESCRIPTION_SPAN.textContent = description;
     CURRENT_CONDITION_SECTION.TEMPERATURE_SPAN.textContent = `${temperature}${temperatureUnit}`;
-
 }
 
 function renderDaily({ dailyUnits, day, weatherCode, temperatureLow, temperatureHigh, precipitation, precipitationProbability }) {
@@ -67,5 +68,11 @@ async function renderForecast() {
     renderCurrent(current, time.time, daytimeRange);
     renderDaily(daily);
 }
+
+// |Initialization
+(() => {
+    initModal(SEARCH_MODAL_BTN);
+})()
+
 
 export { renderForecast };

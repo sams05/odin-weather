@@ -16,14 +16,17 @@
                 <p>Last update: <span class="update-time">1:09PM, Nov 27, 2023</span></p>
             </div>
             <div class="search-buttons-group">
-                <button type="button" class="search-modal-btn">Search Location</button>
+                <button type="button" class="search-modal-btn" data-target-modal-id="search-modal">
+                    Search Location
+                </button>
                 <button type="button" class="detect-location-btn">
                     <span class="material-symbols-outlined"> location_searching </span>
                 </button>
             </div>
-            <dialog class="search-modal">
+            <dialog class="search-modal" id="search-modal">
                 <div class="modal-container">
                     <section class="modal-header">
+                        <button type="button" class="modal-close-btn"><span class="material-symbols-outlined"> close </span></button>
                         <h3><label for="location-search">Search Location</label></h3>
                     </section>
                     <section class="modal-content">
