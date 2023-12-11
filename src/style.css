@@ -141,7 +141,7 @@ header {
         .search-modal-btn {
             flex: 1;
             background-color: white;
-            font: 1rem;
+            font-size: 1rem;
             color: rgba(128, 128, 128, 0.5);
             text-align: left;
             letter-spacing: 0.1rem;

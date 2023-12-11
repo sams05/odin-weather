@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { app } from './ui';
+import { renderTopLevelLoadingIndicator, removeTopLevelLoadingIndicator } from './indicator-overlay';
 
 // Cache DOM
 const UPDATE_TIME_SPAN = document.querySelector('.update-time');
@@ -60,12 +61,14 @@ function renderDaily({ dailyUnits, day, weatherCode, temperatureLow, temperature
 }
 
 async function renderForecast(latitude, longitude) {
+    renderTopLevelLoadingIndicator();
     const { time, current, daytimeRange, daily } = await app.getWeatherData(latitude, longitude);
     renderTime(time);
     // Need to use the time and daytimeRange to differentiate current condition between 
     // daytime and nighttime
     renderCurrent(current, time.time, daytimeRange);
     renderDaily(daily);
+    removeTopLevelLoadingIndicator();
 }
 
 export { renderForecast };

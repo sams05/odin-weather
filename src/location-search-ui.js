@@ -1,4 +1,6 @@
-import { app, renderForecast } from './ui';
+import { app } from './ui';
+import { renderForecast } from './weather-rendering';
+import { renderSearchResultsLoadingIndicator, removeSearchResultsLoadingIndicator } from './indicator-overlay';
 
 const SEARCH_BAR = document.getElementById('location-search');
 const RESULTS_DIV = document.querySelector('.results');
@@ -28,9 +30,11 @@ function renderResults(results) {
 }
 
 async function searchLocation() {
+    renderSearchResultsLoadingIndicator();
     const query = SEARCH_BAR.value;
     const results = await app.getGeocode(query);
     renderResults(results);
+    removeSearchResultsLoadingIndicator();
 }
 
 /**
