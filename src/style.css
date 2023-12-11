@@ -42,22 +42,6 @@ ul {
     list-style: none;
 }
 
-/* | Button */
-button {
-    border: 2px solid black;
-    border-radius: 5px;
-    padding: 5px 10px;
-    color: white;
-    background-color: var(--green);
-    font-family: inherit;
-    font-size: inherit;
-    cursor: pointer;
-}
-
-button:active {
-    box-shadow: inset 0 0 5px 2px rgb(0, 0, 0);
-}
-
 /* | Layout */
 header,
 .current-condition,
@@ -75,6 +59,60 @@ h2 {
     font-size: 2rem;
 }
 
+/* || Button */
+button {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    background-color: var(--green);
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+button:active {
+    box-shadow: inset 0 0 5px 2px rgb(0, 0, 0);
+}
+
+/* | Sitewide */
+/* || Overlay to show data loading status */
+.indicator-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: none;
+    &.active {
+        opacity: 0.75;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    background-color: var(--gray);
+
+    .indicator {
+        font-size: 4rem;
+        color: black;
+
+        &.loading {
+            animation: loading 2s linear infinite;
+        }
+    }
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
+
 /* | Header */
 header {
     background-color: var(--blue);
@@ -85,6 +123,7 @@ header {
     gap: 20px;
 
     .update-status {
+        position: relative;
         background-color: var(--green);
         padding: 20px 40px;
         color: white;
@@ -161,9 +200,16 @@ header {
                     display: flex;
                     flex-direction: column;
                     gap: 20px;
-                    .results {
+                    .results-container {
+                        position: relative;
+                        min-height: 0;
                         flex: 1;
-                        overflow-y: scroll;
+                        display: flex;
+                        flex-direction: column;
+                        .results {
+                            flex: 1;
+                            overflow-y: scroll;
+                        }
                     }
 
                     search {
@@ -210,6 +256,7 @@ header {
     background-size: 1440px;
     background-position: center;
 
+    position: relative;
     display: grid;
     grid-template-rows: repeat(3, auto);
 
@@ -278,6 +325,7 @@ header {
 /* | Forecast */
 .forecast {
     background-color: var(--blue);
+    position: relative;
 
     h2 {
         background-color: var(--green);
@@ -331,18 +379,4 @@ header {
 footer {
     padding-block: 10px;
     text-align: right;
-}
-
-/* |todo */
-.loading {
-    animation: loading 2s linear infinite;
-}
-
-@keyframes loading {
-    from {
-        transform: rotate(0);
-    }
-    to {
-        transform: rotate(1turn);
-    }
 }

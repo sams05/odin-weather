@@ -20,7 +20,7 @@ function renderTime({ time, timezone: { timezoneLong, timezoneShort } }) {
 
 function renderCurrent({ temperature, weatherCode, currentUnits: { temperature: temperatureUnit } }, time, daytimeRange) {
     const { description, image, iconFont } = app.interpretWeatherCode(weatherCode, time, daytimeRange);
-    CURRENT_CONDITION_SECTION.SELF.style.backgroundImage = `url('${image}')`;
+    CURRENT_CONDITION_SECTION.SELF.style.backgroundImage = `url("${image}")`;
     CURRENT_CONDITION_SECTION.ICON_SPAN.textContent = iconFont;
     CURRENT_CONDITION_SECTION.DESCRIPTION_SPAN.textContent = description;
     CURRENT_CONDITION_SECTION.TEMPERATURE_SPAN.textContent = `${temperature}${temperatureUnit}`;
