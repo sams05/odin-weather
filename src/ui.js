@@ -7,11 +7,9 @@ const SEARCH_MODAL = {
 };
 
 // |Initialization
-(() => {
-    initModal(SEARCH_MODAL.MODAL_TRIGGER_BTN);
-    initSearch(SEARCH_MODAL.SEARCH_BTN);
-})();
+initModal(SEARCH_MODAL.MODAL_TRIGGER_BTN);
+initSearch(SEARCH_MODAL.SEARCH_BTN);
 
 // reexport app for component ui modules to use
 export * as app from './app';
-export { renderForecast } from './weather-rendering';;
+export { renderForecast } from './weather-rendering';

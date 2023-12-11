@@ -27,6 +27,8 @@ function renderCurrent({ temperature, weatherCode, currentUnits: { temperature: 
 }
 
 function renderDaily({ dailyUnits, day, weatherCode, temperatureLow, temperatureHigh, precipitation, precipitationProbability }) {
+    // Clear container
+    FORECAST_SECTION.FORECAST_CARDS_DIV.replaceChildren();
     // Create a card for each day
     for (let i = 0; i < day.length; i++) {
         const cardDiv = FORECAST_SECTION.FORECAST_CARD_TEMPLATE.content.cloneNode(true);
