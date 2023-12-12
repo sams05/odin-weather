@@ -2,10 +2,12 @@ import { format } from 'date-fns';
 import { app } from './ui';
 import { renderTopLevelLoadingIndicator, removeTopLevelLoadingIndicator } from './indicator-overlay';
 
-// To be updated whenever renderForecast is called
-const currentSetting = { latitude: 38.8951, longitude: -77.0364, name: 'Washington, Washington, D.C., United States', temperatureUnits: 'fahrenheit' };
+// latitude, longitude, and temperatureUnits to be updated whenever renderForecast is called
+// locationName to be updated whenever new location is selected
+const currentSetting = { latitude: 38.8951, longitude: -77.0364, locationName: 'Washington, Washington, D.C., United States', temperatureUnits: 'fahrenheit' };
 
 // Cache DOM
+const LOCATION_H = document.querySelector('.location');
 const UPDATE_TIME_SPAN = document.querySelector('.update-time');
 const CURRENT_CONDITION_SECTION = {
     SELF: document.querySelector('.current-condition'),
@@ -65,7 +67,8 @@ function renderDaily({ dailyUnits, day, weatherCode, temperatureLow, temperature
 
 // |TODO use reverse geolocation to get location name instead of pulling from global variable
 function renderLocation(latitude, longitude) {
-    const locationName = currentSetting.name ?? `${latitude}, ${longitude}`;
+    const locationName = currentSetting.locationName ?? `${latitude}, ${longitude}`;
+    LOCATION_H.textContent = locationName;
 }
 
 // Persists with values from currentSetting by default except with locationName.

@@ -1,5 +1,5 @@
 import { app } from './ui';
-import { renderForecast } from './weather-rendering';
+import { renderForecast, currentSetting } from './weather-rendering';
 import { renderSearchResultsLoadingIndicator, removeSearchResultsLoadingIndicator } from './indicator-overlay';
 
 const SEARCH_BAR = document.getElementById('location-search');
@@ -23,6 +23,7 @@ function renderResults(results) {
             const modal = resultBtn.closest('dialog');
             const { latitude, longitude } = resultBtn.dataset;
             renderForecast(latitude, longitude);
+            currentSetting.locationName = resultBtn.textContent;
             modal.close();
         });
         RESULTS_DIV.append(resultBtn);
