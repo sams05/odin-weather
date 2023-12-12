@@ -11,5 +11,5 @@ initModal(SEARCH_MODAL.MODAL_TRIGGER_BTN);
 initSearch(SEARCH_MODAL.SEARCH_BTN);
 
 // reexport app for component ui modules to use
-export * as app from './app';
+export * as app from '../app/app';
 export { renderForecast } from './weather-rendering';

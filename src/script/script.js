@@ -1,5 +1,5 @@
-import './style.css';
-import { renderForecast } from './ui';
+import '../style.css';
+import { renderForecast } from './ui/ui';
 
 // Initialize using user location
 (async function init() {
