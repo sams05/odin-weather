@@ -1,4 +1,3 @@
-import { isWithinInterval } from 'date-fns';
 
 // Adapted from https://gist.github.com/stellasphere/9490c195ed2b53c707087c8c2db4ec0c
 // |Todo add LICENSE file for google fonts https://fonts.google.com/icons?icon.query=weather
@@ -341,15 +340,9 @@ const WEATHER_CODE_MAPPING = {
     }
 }
 
-export default function interpretWeatherCode(weatherCode, time, { sunrise, sunset } = {}) {
-    let isDaytime = true; // Default to daytime i.e. for getting forecast icons
-    if (time) {
-        time = new Date(time);
-        sunrise = new Date(sunrise);
-        sunset = new Date(sunset);
-        isDaytime = isWithinInterval(time, { start: sunrise, end: sunset });
-    }
-    const dayNight = isDaytime ? 'day' : 'night';
+// Default to daytime so that daily forecast will use the daytime weather icon
+export default function interpretWeatherCode(weatherCode, isDay = true) {
+    const dayNight = isDay ? 'day' : 'night';
     const { description, image, iconFont } = WEATHER_CODE_MAPPING[weatherCode][dayNight];
     return { description, image, iconFont };
 }

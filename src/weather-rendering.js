@@ -2,6 +2,9 @@ import { format } from 'date-fns';
 import { app } from './ui';
 import { renderTopLevelLoadingIndicator, removeTopLevelLoadingIndicator } from './indicator-overlay';
 
+// To be updated whenever renderForecast is called
+const currentSetting = { latitude: 38.8951, longitude: -77.0364, name: 'Washington, Washington, D.C., United States', temperatureUnits: 'fahrenheit' };
+
 // Cache DOM
 const UPDATE_TIME_SPAN = document.querySelector('.update-time');
 const CURRENT_CONDITION_SECTION = {
@@ -19,8 +22,8 @@ function renderTime({ time, timezone: { timezoneLong, timezoneShort } }) {
     UPDATE_TIME_SPAN.textContent = `${format(new Date(time), 'PPPPp')} ${timezoneShort} (${timezoneLong})`;
 }
 
-function renderCurrent({ temperature, weatherCode, currentUnits: { temperature: temperatureUnit } }, time, daytimeRange) {
-    const { description, image, iconFont } = app.interpretWeatherCode(weatherCode, time, daytimeRange);
+function renderCurrent({ temperature, isDay, weatherCode, currentUnits: { temperature: temperatureUnit } }) {
+    const { description, image, iconFont } = app.interpretWeatherCode(weatherCode, isDay);
     CURRENT_CONDITION_SECTION.SELF.style.backgroundImage = `url("${image}")`;
     CURRENT_CONDITION_SECTION.ICON_SPAN.textContent = iconFont;
     CURRENT_CONDITION_SECTION.DESCRIPTION_SPAN.textContent = description;
@@ -60,15 +63,24 @@ function renderDaily({ dailyUnits, day, weatherCode, temperatureLow, temperature
     }
 }
 
-async function renderForecast(latitude, longitude) {
+// |TODO use reverse geolocation to get location name instead of pulling from global variable
+function renderLocation(latitude, longitude) {
+    const locationName = currentSetting.name ?? `${latitude}, ${longitude}`;
+}
+
+// Persists with values from currentSetting by default except with locationName.
+async function renderForecast(latitude = currentSetting.latitude, longitude = currentSetting.longitude, { temperatureUnits = currentSetting.temperatureUnits } = {}) {
+    currentSetting.latitude = latitude;
+    currentSetting.longitude = longitude;
+    currentSetting.temperatureUnits = temperatureUnits;
+
     renderTopLevelLoadingIndicator();
-    const { time, current, daytimeRange, daily } = await app.getWeatherData(latitude, longitude);
+    const { time, current, daily } = await app.getWeatherData(latitude, longitude);
+    renderLocation(latitude, longitude);
     renderTime(time);
-    // Need to use the time and daytimeRange to differentiate current condition between 
-    // daytime and nighttime
-    renderCurrent(current, time.time, daytimeRange);
+    renderCurrent(current);
     renderDaily(daily);
     removeTopLevelLoadingIndicator();
 }
 
-export { renderForecast };
+export { renderForecast, currentSetting };
