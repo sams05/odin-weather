@@ -1,14 +1,11 @@
 import { initModal } from './modal';
-import { initSearch } from './location-search-ui';
+import './location-search-ui';
+import './units-toggle';
 
-const SEARCH_MODAL = {
-    MODAL_TRIGGER_BTN: document.querySelector('[data-target-modal-id]'),
-    SEARCH_BTN: document.querySelector('.search-btn')
-};
+const MODAL_TRIGGER_BTN = document.querySelector('[data-target-modal-id]');
 
 // |Initialization
-initModal(SEARCH_MODAL.MODAL_TRIGGER_BTN);
-initSearch(SEARCH_MODAL.SEARCH_BTN);
+initModal(MODAL_TRIGGER_BTN);
 
 // reexport app for component ui modules to use
 export * as app from '../app/app';

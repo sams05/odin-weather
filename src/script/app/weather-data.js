@@ -1,13 +1,13 @@
 
-async function getRawWeatherData(latitude, longitude) {
-    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,is_day,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_mean&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`);
+async function getRawWeatherData(latitude, longitude, temperatureUnit) {
+    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,is_day,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_mean&temperature_unit=${temperatureUnit}&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`);
 
     return response.json();
 }
 
-async function getWeatherData(latitude = 38.8951, longitude = -77.0364) {
+async function getWeatherData(latitude = 38.8951, longitude = -77.0364, temperatureUnit = 'fahrenheit') {
     // Extract data for app and rename properties
-    let { timezone: timezoneLong, timezone_abbreviation: timezoneShort, current_units: currentUnits, current, daily_units: dailyUnits, daily } = await getRawWeatherData(latitude, longitude);
+    let { timezone: timezoneLong, timezone_abbreviation: timezoneShort, current_units: currentUnits, current, daily_units: dailyUnits, daily } = await getRawWeatherData(latitude, longitude, temperatureUnit);
     const timezone = { timezoneLong, timezoneShort };
     const time = { time: current.time, timezone };
     currentUnits = { temperature: currentUnits.temperature_2m };

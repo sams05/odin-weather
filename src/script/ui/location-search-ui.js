@@ -2,6 +2,7 @@ import { app } from './ui';
 import { renderForecast, currentSetting } from './weather-rendering';
 import { renderSearchResultsLoadingIndicator, removeSearchResultsLoadingIndicator } from './indicator-overlay';
 
+const SEARCH_BTN = document.querySelector('.search-btn');
 const SEARCH_BAR = document.getElementById('location-search');
 const RESULTS_DIV = document.querySelector('.results');
 const RESULT_TEMPLATE = document.querySelector('.result-template');
@@ -38,14 +39,9 @@ async function searchLocation() {
     removeSearchResultsLoadingIndicator();
 }
 
-/**
- * 
- * @param {HTMLButtonElement} searchBtn 
- */
-function initSearch(searchBtn) {
-    searchBtn.addEventListener('click', e => {
+// Initialization
+(function initSearch() {
+    SEARCH_BTN.addEventListener('click', e => {
         searchLocation({});
     });
-}
-
-export { initSearch };
+})()

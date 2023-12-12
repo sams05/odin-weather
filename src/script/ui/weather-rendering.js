@@ -2,9 +2,9 @@ import { format } from 'date-fns';
 import { app } from './ui';
 import { renderTopLevelLoadingIndicator, removeTopLevelLoadingIndicator } from './indicator-overlay';
 
-// latitude, longitude, and temperatureUnits to be updated whenever renderForecast is called
+// latitude, longitude, and temperatureUnit to be updated whenever renderForecast is called
 // locationName to be updated whenever new location is selected
-const currentSetting = { latitude: 38.8951, longitude: -77.0364, locationName: 'Washington, Washington, D.C., United States', temperatureUnits: 'fahrenheit' };
+const currentSetting = { latitude: 38.8951, longitude: -77.0364, locationName: 'Washington, Washington, D.C., United States', temperatureUnit: 'fahrenheit' };
 
 // Cache DOM
 const LOCATION_H = document.querySelector('.location');
@@ -72,13 +72,13 @@ function renderLocation(latitude, longitude) {
 }
 
 // Persists with values from currentSetting by default except with locationName.
-async function renderForecast(latitude = currentSetting.latitude, longitude = currentSetting.longitude, { temperatureUnits = currentSetting.temperatureUnits } = {}) {
+async function renderForecast(latitude = currentSetting.latitude, longitude = currentSetting.longitude, { temperatureUnit = currentSetting.temperatureUnit } = {}) {
     currentSetting.latitude = latitude;
     currentSetting.longitude = longitude;
-    currentSetting.temperatureUnits = temperatureUnits;
+    currentSetting.temperatureUnit = temperatureUnit;
 
     renderTopLevelLoadingIndicator();
-    const { time, current, daily } = await app.getWeatherData(latitude, longitude);
+    const { time, current, daily } = await app.getWeatherData(latitude, longitude, temperatureUnit);
     renderLocation(latitude, longitude);
     renderTime(time);
     renderCurrent(current);
