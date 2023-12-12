@@ -1,5 +1,6 @@
 import { initModal } from './modal';
 import './location-search-ui';
+import './device-location-ui';
 import './units-toggle';
 
 const MODAL_TRIGGER_BTN = document.querySelector('[data-target-modal-id]');

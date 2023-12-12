@@ -67,7 +67,8 @@ function renderDaily({ dailyUnits, day, weatherCode, temperatureLow, temperature
 
 // |TODO use reverse geolocation to get location name instead of pulling from global variable
 function renderLocation(latitude, longitude) {
-    const locationName = currentSetting.locationName ?? `${latitude}, ${longitude}`;
+    // If no name is found, print the latitude and longitude to 3 decimal places
+    const locationName = currentSetting.locationName ?? `${latitude.toFixed(3)}, ${longitude.toFixed(3)}`;
     LOCATION_H.textContent = locationName;
 }
 

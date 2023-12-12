@@ -7,7 +7,6 @@ const SEARCH_BAR = document.getElementById('location-search');
 const RESULTS_DIV = document.querySelector('.results');
 const RESULT_TEMPLATE = document.querySelector('.result-template');
 
-// |Todo handle missing admin1
 // Assumes that the resultBtn is in a dialog modal
 function renderResults(results) {
     RESULTS_DIV.replaceChildren(); // Clear the results
@@ -42,6 +41,6 @@ async function searchLocation() {
 // Initialization
 (function initSearch() {
     SEARCH_BTN.addEventListener('click', e => {
-        searchLocation({});
+        searchLocation();
     });
-})()
+})();
