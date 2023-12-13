@@ -6,8 +6,18 @@ const SEARCH_BTN = document.querySelector('.search-btn');
 const SEARCH_BAR = document.getElementById('location-search');
 const RESULTS_DIV = document.querySelector('.results');
 const RESULT_TEMPLATE = document.querySelector('.result-template');
+const ERROR_OVERLAY = document.querySelector('.results-container .error-overlay');
 
-// Assumes that the resultBtn is in a dialog modal
+function clearError() {
+    ERROR_OVERLAY.replaceChildren();
+    ERROR_OVERLAY.classList.remove('active');
+}
+
+function renderError(message) {
+    ERROR_OVERLAY.replaceChildren(message);
+    ERROR_OVERLAY.classList.add('active');
+}
+
 function renderResults(results) {
     RESULTS_DIV.replaceChildren(); // Clear the results
     for (const { name, latitude, longitude, country, admin1 } of results) {
@@ -20,6 +30,7 @@ function renderResults(results) {
         resultBtn.addEventListener('click', e => {
             // Render forecast for the selected location and close modal
             const resultBtn = e.currentTarget;
+            // Assumes that the resultBtn is in a dialog modal
             const modal = resultBtn.closest('dialog');
             const { latitude, longitude } = resultBtn.dataset;
             renderForecast(latitude, longitude);
@@ -28,13 +39,21 @@ function renderResults(results) {
         });
         RESULTS_DIV.append(resultBtn);
     }
+    if(results.length === 0) {
+        RESULTS_DIV.append('No results found for the entered location.');
+    }
 }
 
 async function searchLocation() {
     renderSearchResultsLoadingIndicator();
+    clearError();
     const query = SEARCH_BAR.value;
-    const results = await app.getGeocode(query);
-    renderResults(results);
+    try {
+        const results = await app.getGeocode(query);
+        renderResults(results);
+    } catch(error) {
+        renderError('Oops! Something went wrong while searching for the location.');
+    }
     removeSearchResultsLoadingIndicator();
 }
 

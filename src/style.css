@@ -76,8 +76,8 @@ button:active {
 }
 
 /* | Sitewide */
-/* || Overlay to show data loading status */
-.indicator-overlay {
+/* || Overlay to show data loading status and errors */
+:is(.indicator-overlay, .error-overlay) {
     position: absolute;
     top: 0;
     left: 0;
