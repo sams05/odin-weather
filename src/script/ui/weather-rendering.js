@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import { app } from './ui';
-import { renderTopLevelLoadingIndicator, removeTopLevelLoadingIndicator, renderWeatherDataError, clearWeatherDataError } from './overlays';
+import { renderTopLevelLoadingIndicator, removeTopLevelLoadingIndicator } from './overlays';
+import Toastify from 'toastify-js';
 
 // latitude, longitude, and temperatureUnit to be updated whenever renderForecast is called
 // locationName to be updated whenever new location is selected
@@ -18,6 +19,15 @@ const CURRENT_CONDITION_SECTION = {
 const FORECAST_SECTION = {
     FORECAST_CARD_TEMPLATE: document.querySelector('.card-template'),
     FORECAST_CARDS_DIV: document.querySelector('.forecast-cards')
+}
+
+function renderWeatherDataError(message) {
+    Toastify({
+        text: message,
+        duration: 5000,
+        close: true,
+        stopOnFocus: true
+    }).showToast();
 }
 
 function renderTime({ time, timezone: { timezoneLong, timezoneShort } }) {
@@ -79,15 +89,14 @@ async function renderForecast(latitude = currentSetting.latitude, longitude = cu
     currentSetting.temperatureUnit = temperatureUnit;
 
     renderTopLevelLoadingIndicator();
-    clearWeatherDataError();
     try {
         const { time, current, daily } = await app.getWeatherData(latitude, longitude, temperatureUnit);
         renderLocation(latitude, longitude);
         renderTime(time);
         renderCurrent(current);
         renderDaily(daily);
-    } catch(error) {
-        renderWeatherDataError('Oops! We\'re unable to update latest weather data');
+    } catch (error) {
+        renderWeatherDataError('Oops! We\'re unable to update the weather data');
     }
     removeTopLevelLoadingIndicator();
 }
