@@ -1,4 +1,5 @@
 import '../style.css';
+import '../toastify.css';
 import { renderForecast } from './ui/ui';
 
 // Initialize using user location

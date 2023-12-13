@@ -50,8 +50,8 @@ function renderDaily({ dailyUnits, day, weatherCode, temperatureLow, temperature
 
         // Forecast details
         const conditionP = document.createElement('p');
-        const temperatureLowP = document.createElement('p');
         const temperatureHighP = document.createElement('p');
+        const temperatureLowP = document.createElement('p');
         const precipitationP = document.createElement('p');
         const precipitationProbabilityP = document.createElement('p');
         conditionP.textContent = description;
@@ -59,7 +59,7 @@ function renderDaily({ dailyUnits, day, weatherCode, temperatureLow, temperature
         temperatureLowP.textContent = `L: ${temperatureLow[i]} ${dailyUnits.temperatureLow}`;
         precipitationP.textContent = `Precip.: ${precipitation[i]} ${dailyUnits.precipitation}`;
         precipitationProbabilityP.textContent = `Chance: ${[precipitationProbability[i]]} ${dailyUnits.precipitationProbability}`;
-        forecastDetailsDiv.append(conditionP, temperatureLowP, temperatureHighP, precipitationP, precipitationProbabilityP);
+        forecastDetailsDiv.append(conditionP, temperatureHighP, temperatureLowP, precipitationP, precipitationProbabilityP);
 
         FORECAST_SECTION.FORECAST_CARDS_DIV.append(cardDiv);
     }
