@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { app } from './ui';
-import { renderTopLevelLoadingIndicator, removeTopLevelLoadingIndicator } from './indicator-overlay';
+import { renderTopLevelLoadingIndicator, removeTopLevelLoadingIndicator, renderWeatherDataError, clearWeatherDataError } from './overlays';
 
 // latitude, longitude, and temperatureUnit to be updated whenever renderForecast is called
 // locationName to be updated whenever new location is selected
@@ -79,11 +79,16 @@ async function renderForecast(latitude = currentSetting.latitude, longitude = cu
     currentSetting.temperatureUnit = temperatureUnit;
 
     renderTopLevelLoadingIndicator();
-    const { time, current, daily } = await app.getWeatherData(latitude, longitude, temperatureUnit);
-    renderLocation(latitude, longitude);
-    renderTime(time);
-    renderCurrent(current);
-    renderDaily(daily);
+    clearWeatherDataError();
+    try {
+        const { time, current, daily } = await app.getWeatherData(latitude, longitude, temperatureUnit);
+        renderLocation(latitude, longitude);
+        renderTime(time);
+        renderCurrent(current);
+        renderDaily(daily);
+    } catch(error) {
+        renderWeatherDataError('Oops! We\'re unable to update latest weather data');
+    }
     removeTopLevelLoadingIndicator();
 }
 

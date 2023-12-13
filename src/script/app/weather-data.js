@@ -1,7 +1,10 @@
 
 async function getRawWeatherData(latitude, longitude, temperatureUnit) {
     const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,is_day,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_mean&temperature_unit=${temperatureUnit}&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`);
-
+    // Throw HTTP errors
+    if(!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+    }
     return response.json();
 }
 

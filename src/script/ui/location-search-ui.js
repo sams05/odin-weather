@@ -1,22 +1,11 @@
 import { app } from './ui';
 import { renderForecast, currentSetting } from './weather-rendering';
-import { renderSearchResultsLoadingIndicator, removeSearchResultsLoadingIndicator } from './indicator-overlay';
+import { renderSearchResultsLoadingIndicator, removeSearchResultsLoadingIndicator, renderSearchError, clearSearchError } from './overlays';
 
 const SEARCH_BTN = document.querySelector('.search-btn');
 const SEARCH_BAR = document.getElementById('location-search');
 const RESULTS_DIV = document.querySelector('.results');
 const RESULT_TEMPLATE = document.querySelector('.result-template');
-const ERROR_OVERLAY = document.querySelector('.results-container .error-overlay');
-
-function clearError() {
-    ERROR_OVERLAY.replaceChildren();
-    ERROR_OVERLAY.classList.remove('active');
-}
-
-function renderError(message) {
-    ERROR_OVERLAY.replaceChildren(message);
-    ERROR_OVERLAY.classList.add('active');
-}
 
 function renderResults(results) {
     RESULTS_DIV.replaceChildren(); // Clear the results
@@ -46,13 +35,13 @@ function renderResults(results) {
 
 async function searchLocation() {
     renderSearchResultsLoadingIndicator();
-    clearError();
+    clearSearchError();
     const query = SEARCH_BAR.value;
     try {
         const results = await app.getGeocode(query);
         renderResults(results);
     } catch(error) {
-        renderError('Oops! Something went wrong while searching for the location.');
+        renderSearchError('Oops! Something went wrong while searching for the location.');
     }
     removeSearchResultsLoadingIndicator();
 }
