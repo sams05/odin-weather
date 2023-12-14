@@ -1,0 +1,9 @@
+See the third-party-copyright-notice directory for the full copyright text of each vendor.
+
+This project makes use of Toastify JS developed by Varun AP under the MIT License.
+
+This project makes use of Materal Symbols (https://developers.google.com/fonts/docs/material_symbols) for icons, made available under Apache License Version 2.0.
+
+Date formatting is done using the date-fns library developed by Sasha Koss under the MIT License.
+
+Weather background images are all selected from Pexels.
