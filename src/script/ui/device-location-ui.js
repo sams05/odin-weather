@@ -1,5 +1,6 @@
 import { app } from './ui';
 import { renderForecast, currentSetting } from './weather-rendering';
+import { renderTopLevelLoadingIndicator, removeTopLevelLoadingIndicator } from './overlays';
 import Toastify from 'toastify-js';
 
 const DETECT_LOCATION_BTN = document.querySelector('.detect-location-btn');
@@ -34,6 +35,7 @@ function renderErrorMessage(error) {
  * Get location from user's device and display its forecast.
  */
 async function renderCurrentLocationForecast() {
+    renderTopLevelLoadingIndicator();
     try {
         const { latitude, longitude } = await app.getCurrentLocation();
         currentSetting.locationName = undefined;
@@ -41,6 +43,7 @@ async function renderCurrentLocationForecast() {
     } catch (error) {
         renderErrorMessage(error);
     }
+    removeTopLevelLoadingIndicator();
 }
 
 // Initialization
