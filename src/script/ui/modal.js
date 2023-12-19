@@ -1,4 +1,10 @@
-
+/**
+ * Close modal if the user clicked outside the modal. 
+ * Adapted from https://blog.webdevsimplified.com/2023-04/html-dialog/
+ * @param {HTMLDialogElement} modal 
+ * @param {Number} clientX 
+ * @param {Number} clientY 
+ */
 function closeModalOutsideRange(modal, clientX, clientY) {
     const modalDimensions = modal.getBoundingClientRect();
     if (
@@ -14,7 +20,7 @@ function closeModalOutsideRange(modal, clientX, clientY) {
 /**
  * Add event listeners to make a modal trigger element and its corresponding modal (a dialog element) functional.
  * @param {HTMLElement} modalTriggerElem The HTML Element i.e. button to open a modal. The element should have
- * a data-target-modal-id attribute to identify id of the modal to open. The modal element should have a close button
+ * a data-target-modal-id attribute to identify the id of the modal to open. The modal element should have a close button
  * with class modal-close-btn
  */
 function initModal(modalTriggerElem) {

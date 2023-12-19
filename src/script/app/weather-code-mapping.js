@@ -339,8 +339,16 @@ const WEATHER_CODE_MAPPING = {
     }
 }
 
-// Default to daytime so that daily forecast will use the daytime weather icon
+
+/**
+ * Get the description, image link, and icon font text associated with the WMO Weather interpretation codes
+ * @param {Number} weatherCode 
+ * @param {Boolean} isDay 
+ * @returns {Object} object containing the description, image link, and icon font text
+ */
 export default function interpretWeatherCode(weatherCode, isDay = true) {
+    // Default to daytime so that daily forecast will use the daytime weather icon
+
     const dayNight = isDay ? 'day' : 'night';
     const { description, image, iconFont } = WEATHER_CODE_MAPPING[weatherCode][dayNight];
     return { description, image, iconFont };

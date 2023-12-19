@@ -1,3 +1,4 @@
+/* | Imported fonts */
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 /* | Reset */
@@ -23,6 +24,7 @@ body {
     font-size: 1rem;
 }
 
+/* Settings for google font icon */
 .material-symbols-outlined {
     font-variation-settings:
         'FILL' 0,
@@ -50,6 +52,7 @@ footer {
     padding: 30px 100px;
 
     @media (min-width: 1540px) {
+        /* Padding to maintain the max-content-width */
         padding-inline: calc((100vw - var(--max-content-width)) / 2);
     }
 }
@@ -76,14 +79,16 @@ button:active {
 }
 
 /* | Sitewide */
-/* || Overlay to show data loading status and errors */
+/* || Overlay to show data loading status and error messages */
 :is(.indicator-overlay, .error-overlay) {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    background-color: var(--gray);
 
+    /* Show overlay with .active */
     display: none;
     &.active {
         opacity: 0.75;
@@ -92,8 +97,7 @@ button:active {
         align-items: center;
     }
 
-    background-color: var(--gray);
-
+    /* Animate loading icon */
     .indicator {
         font-size: 4rem;
         color: black;
@@ -122,6 +126,7 @@ header {
     grid-template-columns: repeat(12, 1fr);
     gap: 20px;
 
+    /* Container showing location and update time */
     .update-status {
         position: relative;
         background-color: var(--green);
@@ -132,11 +137,13 @@ header {
         grid-column: 1 / span 4;
     }
 
+    /* Container for location search functionalities */
     .search-buttons-group {
         grid-column: span 6 / -1;
 
         height: 2rem;
 
+        /* Button to trigger modal for searching location */
         display: flex;
         .search-modal-btn {
             flex: 1;
@@ -162,6 +169,8 @@ header {
             translate: -50% -50%;
             padding: 30px 50px;
 
+            /* Have to wrap everything in the modal with .modal-container to apply flexbox
+            since the modal itself need to retain its default display value to work properly */
             .modal-container {
                 height: 100%;
                 display: flex;
@@ -237,6 +246,7 @@ header {
                         }
                     }
 
+                    /* Buttons to select a location from the search result */
                     .results {
                         button {
                             display: block;
@@ -252,12 +262,15 @@ header {
 
 /* | Current Condition */
 .current-condition {
+    /* Background image to change according to the current condition  */
     background-image: url('https://images.pexels.com/photos/666839/pexels-photo-666839.jpeg');
     background-size: 1440px;
     background-position: center;
 
     position: relative;
     display: grid;
+    /* Three rows: 
+    one for the units toggle button, one for the heading, and one for the main card */
     grid-template-rows: repeat(3, auto);
 
     /* Background colors */
@@ -267,13 +280,17 @@ header {
     }
 
     .temperature-units-toggle {
+        /* Using flexbox to eliminate spacing between the toggle buttons.
+        Ref: https://css-tricks.com/fighting-the-space-between-inline-block-elements/ */
         display: flex;
+
         justify-self: end;
 
         & button {
             border: none;
             border-radius: unset;
 
+            /* Use outline to highlight the current unit */
             &.active {
                 outline: 2px solid yellow;
                 outline-offset: -2px;
@@ -295,6 +312,8 @@ header {
         --main-card-col-width: 260px;
         width: calc(2 * var(--main-card-col-width));
         display: grid;
+        /* Two columns: 
+        Weather icon in the first column. Weather description and temperature in the second column */
         grid-template-columns: repeat(2, var(--main-card-col-width));
         grid-template-rows: 84px 168px;
 
@@ -337,6 +356,7 @@ header {
         margin-bottom: 20px;
     }
 
+    /* Container for daily forecast cards */
     .forecast-cards {
         --min-card-width: 200px;
 

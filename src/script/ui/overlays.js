@@ -1,6 +1,6 @@
 /* Naming note: 
-The indicator overlays and corresponding functions are named to emphasize the overlay's containers in the page.
-The error overlays and corresponding functions are named to emphasize which app functionality is causing the error.
+The indicator overlays and corresponding functions are named to emphasize the their container.
+The error overlays and corresponding functions are named to emphasize the app functionality causing the error.
 */
 
 const INDICATOR_OVERLAYS = {
@@ -31,11 +31,18 @@ function removeSearchResultsLoadingIndicator() {
     INDICATOR_OVERLAYS.SEARCH_RESULTS.classList.remove('active');
 }
 
+/**
+ * Add error messages to the search result overlay then show the overlay
+ * @param {String} message 
+ */
 function renderSearchError(message) {
     ERROR_OVERLAYS.SEARCH.replaceChildren(message);
     ERROR_OVERLAYS.SEARCH.classList.add('active');
 }
 
+/**
+ * Remove error messages on the search result overlay then hide the overlay
+ */
 function clearSearchError() {
     ERROR_OVERLAYS.SEARCH.replaceChildren();
     ERROR_OVERLAYS.SEARCH.classList.remove('active');
